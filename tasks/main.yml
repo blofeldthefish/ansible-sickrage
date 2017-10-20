@@ -21,7 +21,7 @@
 
 - name: Create folder /opt/sickrage
   file:
-    path: "{{ sickrage_installdir }}"
+    path: /opt/sickrage
     state: directory
     owner: sickrage
     group: sickrage
@@ -30,14 +30,14 @@
 - name: Download sickrage code
   git:
     repo: 'https://github.com/SickRage/SickRage.git'
-    dest: "{{ sickrage_installdir }}"
+    dest: /opt/sickrage
     version: "{{ sickrage_version }}"
 
 - block:
 
     - name: Copy systemd config file
       copy:
-        src: "{{ sickrage_installdir }}/runscripts/init.systemd"
+        src: /opt/sickrage/runscripts/init.systemd
         dest: /etc/systemd/system/sickrage.service
         remote_src: yes
 
@@ -61,7 +61,7 @@
 
     - name: Copy sysvinit config file
       copy:
-        src: "{{ sickrage_installdir }}/runscripts/init.ubuntu"
+        src: /opt/sickrage/runscripts/init.ubuntu
         dest: /etc/init.d/sickrage
         remote_src: yes
 
@@ -84,7 +84,7 @@
 
     - name: Copy Upstart config file
       copy:
-        src: "{{ sickrage_installdir }}/runscripts/init.upstart"
+        src: /opt/sickrage/runscripts/init.upstart
         dest: /etc/init/sickrage.conf
         remote_src: yes
 
