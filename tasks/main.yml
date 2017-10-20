@@ -56,3 +56,49 @@
         mode: 0644
 
   when: ansible_service_mgr == 'systemd'
+
+- block:
+
+    - name: Copy sysvinit config file
+      copy:
+        src: "{{ sickrage_installdir }}/runscripts/init.ubuntu"
+        dest: /etc/init.d/sickrage
+        remote_src: yes
+
+    - name: start and enable the sickrage sysvinit service
+      service:
+        state: started
+        name: sickrage
+        enabled: yes
+
+    - name: make sure permissions of sysvinit file are correct
+      file:
+        path: /etc/init.d/sickrage
+        owner: root
+        group: root
+        mode: 0644
+
+  when: ansible_service_mgr == 'sysvinit'
+
+- block:
+
+    - name: Copy Upstart config file
+      copy:
+        src: "{{ sickrage_installdir }}/runscripts/init.upstart"
+        dest: /etc/init/sickrage.conf
+        remote_src: yes
+
+    - name: start and enable the Upstart sysvinit service
+      service:
+        state: started
+        name: sickrage
+        enabled: yes
+
+    - name: make sure permissions of Upstart file are correct
+      file:
+        path: /etc/init/sickrage.conf
+        owner: root
+        group: root
+        mode: 0644
+
+  when: ansible_service_mgr == 'sysvinit'
