@@ -43,8 +43,8 @@
 
     - name: start and enable the sickrage systemd service
       systemd:
-        state: started
         name: sickrage
+        state: started
         enabled: yes
         daemon_reload: yes
 
@@ -67,8 +67,8 @@
 
     - name: start and enable the sickrage sysvinit service
       service:
-        state: started
         name: sickrage
+        state: started
         enabled: yes
 
     - name: make sure permissions of sysvinit file are correct
@@ -90,8 +90,8 @@
 
     - name: start and enable the Upstart sysvinit service
       service:
-        state: started
         name: sickrage
+        state: started
         enabled: yes
 
     - name: make sure permissions of Upstart file are correct
@@ -101,4 +101,4 @@
         group: root
         mode: 0644
 
-  when: ansible_service_mgr == 'sysvinit'
+  when: ansible_service_mgr == 'upstart'
