@@ -11,6 +11,11 @@ none
 Role Variables
 --------------
 
+`sickrage_installdir: /opt/sickrage`
+
+`sickrage_version: "v2017.06.05-1"`
+
+`sickrage_user_home_folder: /var/lib/sickrage`
 
 Dependencies
 ------------
@@ -20,11 +25,10 @@ none
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
     - hosts: servers
+      remote_user: root
       roles:
-         - { role: sickrage, x: 42 }
+         - { role: sickrage }
 
 License
 -------
