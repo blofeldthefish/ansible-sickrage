@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Install Sickrage in Ubuntu follwing the docs in [https://github.com/SickRage/SickRage/wiki/Sickrage-installation-Debian-Ubuntu-14-15-16](https://github.com/SickRage/SickRage/wiki/Sickrage-installation-Debian-Ubuntu-14-15-16)
+Install Sickrage in Debian or Ubuntu follwing the docs in [https://github.com/SickRage/SickRage/wiki/Sickrage-installation-Debian-Ubuntu-14-15-16](https://github.com/SickRage/SickRage/wiki/Sickrage-installation-Debian-Ubuntu-14-15-16)
 
 Requirements
 ------------
@@ -10,8 +10,6 @@ none
 
 Role Variables
 --------------
-
-`sickrage_installdir: /opt/sickrage`
 
 `sickrage_version: "v2017.06.05-1"`
 
@@ -28,7 +26,7 @@ Example Playbook
     - hosts: servers
       remote_user: root
       roles:
-         - { role: sickrage }
+         - { role: sickrage, sickrage_version: "v2017.06.05-1" }
 
 License
 -------
