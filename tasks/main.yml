@@ -1,0 +1,58 @@
+---
+# tasks file for sickrage
+
+- name: Install some dependencies
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - unrar-free
+    - git-core
+    - openssl
+    - libssl-dev
+    - python2.7
+
+- name: Add a user sickrage
+  user:
+    name: sickrage
+    comment: "functional user to run sickrage"
+    system: yes
+    home: "{{ sickrage_user_home_folder }}"
+
+- name: Create folder /opt/sickrage
+  file:
+    path: "{{ sickrage_installdir }}"
+    state: directory
+    owner: sickrage
+    group: sickrage
+    mode: 0755
+
+- name: Download sickrage code
+  git:
+    repo: 'https://github.com/SickRage/SickRage.git'
+    dest: "{{ sickrage_installdir }}"
+    version: "{{ sickrage_version }}"
+
+- block:
+
+    - name: Copy systemd config file
+      copy:
+        src: "{{ sickrage_installdir }}/runscripts/init.systemd"
+        dest: /etc/systemd/system/sickrage.service
+        remote_src: yes
+
+    - name: start and enable the sickrage systemd service
+      systemd:
+        state: started
+        name: sickrage
+        enabled: yes
+        daemon_reload: yes
+
+    - name: make sure permissions of systemd file are correct
+      file:
+        path: /etc/systemd/system/sickrage.service
+        owner: root
+        group: root
+        mode: 0644
+
+  when: ansible_service_mgr == 'systemd'

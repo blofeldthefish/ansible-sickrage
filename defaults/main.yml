@@ -1,0 +1,10 @@
+---
+# defaults file for sickrage
+
+sickrage_installdir: /opt/sickrage
+
+# check available version here
+# https://github.com/SickRage/SickRage/releases
+sickrage_version: "v2017.06.05-1"
+
+sickrage_user_home_folder: /var/lib/sickrage
