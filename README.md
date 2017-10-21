@@ -1,4 +1,4 @@
-Role Name
+ansible-sickrage
 =========
 
 Install Sickrage in Debian or Ubuntu follwing the docs in [https://github.com/SickRage/SickRage/wiki/Sickrage-installation-Debian-Ubuntu-14-15-16](https://github.com/SickRage/SickRage/wiki/Sickrage-installation-Debian-Ubuntu-14-15-16)

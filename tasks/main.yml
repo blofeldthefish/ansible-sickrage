@@ -40,6 +40,13 @@
         src: /opt/sickrage/runscripts/init.systemd
         dest: /etc/systemd/system/sickrage.service
         remote_src: yes
+        
+    - name: make sure permissions of systemd file are correct
+      file:
+        path: /etc/systemd/system/sickrage.service
+        owner: root
+        group: root
+        mode: 0644
 
     - name: start and enable the sickrage systemd service
       systemd:
@@ -47,13 +54,6 @@
         state: started
         enabled: yes
         daemon_reload: yes
-
-    - name: make sure permissions of systemd file are correct
-      file:
-        path: /etc/systemd/system/sickrage.service
-        owner: root
-        group: root
-        mode: 0644
 
   when: ansible_service_mgr == 'systemd'
 
@@ -65,18 +65,18 @@
         dest: /etc/init.d/sickrage
         remote_src: yes
 
-    - name: start and enable the sickrage sysvinit service
-      service:
-        name: sickrage
-        state: started
-        enabled: yes
-
     - name: make sure permissions of sysvinit file are correct
       file:
         path: /etc/init.d/sickrage
         owner: root
         group: root
         mode: 0644
+        
+   - name: start and enable the sickrage sysvinit service
+      service:
+        name: sickrage
+        state: started
+        enabled: yes
 
   when: ansible_service_mgr == 'sysvinit'
 
@@ -87,18 +87,18 @@
         src: /opt/sickrage/runscripts/init.upstart
         dest: /etc/init/sickrage.conf
         remote_src: yes
-
-    - name: start and enable the Upstart sysvinit service
-      service:
-        name: sickrage
-        state: started
-        enabled: yes
-
+        
     - name: make sure permissions of Upstart file are correct
       file:
         path: /etc/init/sickrage.conf
         owner: root
         group: root
         mode: 0644
+
+    - name: start and enable the Upstart sysvinit service
+      service:
+        name: sickrage
+        state: started
+        enabled: yes
 
   when: ansible_service_mgr == 'upstart'
